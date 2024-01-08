@@ -1,35 +1,31 @@
 
 const App = () => {
   const course = 'Half Stack application development'
-  const part1 = 'Fundamentals of React'
-  const exercises1 = 10
-  const part2 = 'Using props to pass data'
-  const exercises2 = 7
-  const part3 = 'State of a component'
-  const exercises3 = 14
+  const part1 = {
+    name: 'Fundamentals of React',
+    exercises: 10
+  }
+  const part2 = {
+    name: 'Using props to pass data',
+    exercises: 7
+  }
+  const part3 = {
+    name: 'State of a component',
+    exercises: 14
+  }
+
 
   return (
     <div>
-      {/* <h1>{course}</h1> */}
       <>
         <Header course = {course}/>
       </>
-      {/* <p>
-        {part1} {exercises1}
-      </p>
-      <p>
-        {part2} {exercises2}
-      </p>
-      <p>
-        {part3} {exercises3}
-      </p> */}
       <>
-        <Content part1 = {part1} part2 = {part2} part3 = {part3} ex1 = {exercises1} ex2 = {exercises2} ex3 = {exercises3}/>
+        <Content part1 = {part1.name} part2 = {part2.name} part3 = {part3.name} ex1 = {part1.exercises} ex2 = {part2.exercises} ex3 = {part3.exercises}/>
       </>
-      {/* <p>Number of exercises {exercises1 + exercises2 + exercises3}</p> */}
-      <p>
-        <Total ex1 = {exercises1} ex2 = {exercises2} ex3 = {exercises3}/>
-      </p>
+      <>
+        <Total ex1 = {part1.exercises} ex2 = {part2.exercises} ex3 = {part3.exercises}/>
+      </>
     </div>
   )
 }
@@ -41,15 +37,16 @@ export default App
 const Total = (props) => {
   let total = props.ex1 + props.ex2 + props.ex3
   return (
-      <>
+      <p>
        Number of exercises {total}
-      </>
+      </p>
   )
 }
 
 // Header
 // kurssien nimet
 const Header = (props) => {
+  console.log(props)
   const course = props.course
   return (
       <>
@@ -70,15 +67,6 @@ const Content = (props) => {
 
   return (
       <>
-      {/* <p>
-        {part1} {ex1}
-      </p>
-      <p>
-        {part2} {ex2}
-      </p>
-      <p>
-        {part3} {ex3}
-      </p> */}
       <Part part = {part1} ex = {ex1}/>
       <Part part = {part2} ex = {ex2}/>
       <Part part = {part3} ex = {ex3}/>
