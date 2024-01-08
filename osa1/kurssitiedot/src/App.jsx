@@ -1,20 +1,22 @@
 
 const App = () => {
-  const course = 'Half Stack application development'
-  const parts = [
-    {
-      name: 'Fundamentals of React',
-      exercises: 10
-    },
-    {
-      name: 'Using props to pass data',
-      exercises: 7
-    },
-    {
-      name: 'State of a component',
-      exercises: 14
-    }
-  ]
+  const course = {
+    name: 'Half Stack application development',
+    parts: [
+      {
+        name: 'Fundamentals of React',
+        exercises: 10
+      },
+      {
+        name: 'Using props to pass data',
+        exercises: 7
+      },
+      {
+        name: 'State of a component',
+        exercises: 14
+      }
+    ]
+  }
 
 
   return (
@@ -23,12 +25,10 @@ const App = () => {
         <Header course = {course}/>
       </>
       <>
-        {/* <Content part1 = {part1.name} part2 = {part2.name} part3 = {part3.name} ex1 = {part1.exercises} ex2 = {part2.exercises} ex3 = {part3.exercises}/> */}
-        <Content parts = {parts}/>
+        <Content course = {course}/>
       </>
       <>
-        {/* <Total ex1 = {part1.exercises} ex2 = {part2.exercises} ex3 = {part3.exercises}/> */}
-        <Total parts = {parts}/>
+        <Total course = {course}/>
       </>
     </div>
   )
@@ -39,8 +39,7 @@ export default App
 // Total
 // tehtävien yhteismäärä
 const Total = (props) => {
-  // let total = props.ex1 + props.ex2 + props.ex3
-  const total = props.parts[0].exercises + props.parts[1].exercises + props.parts[2].exercises;
+  const total = props.course.parts[0].exercises + props.course.parts[1].exercises + props.course.parts[2].exercises;
   console.log(total)
   return (
       <p>
@@ -52,8 +51,8 @@ const Total = (props) => {
 // Header
 // kurssien nimet
 const Header = (props) => {
-  console.log(props)
-  const course = props.course
+  //console.log(props)
+  const course = props.course.name
   return (
       <>
         <h1>{course}</h1>
@@ -64,12 +63,12 @@ const Header = (props) => {
 // Content
 // kurssien osat ja osien tehtävämäärät
 const Content = (props) => {
-  const part1 = props.parts[0].name
-  const ex1 = props.parts[0].exercises
-  const part2 = props.parts[1].name
-  const ex2 = props.parts[1].exercises
-  const part3 = props.parts[2].name
-  const ex3 = props.parts[2].exercises
+  const part1 = props.course.parts[0].name
+  const ex1 = props.course.parts[0].exercises
+  const part2 = props.course.parts[1].name
+  const ex2 = props.course.parts[1].exercises
+  const part3 = props.course.parts[2].name
+  const ex3 = props.course.parts[2].exercises
 
   return (
       <>
