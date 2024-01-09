@@ -1,54 +1,26 @@
 import { useState } from 'react'
 
 const App = () => {
-  const [counter, setCounter] = useState(0)
-  console.log('rendering with counter value', counter)
+  const [clicks, setClicks] = useState({
+    left: 0, right: 0
+  })
 
-  const increaseByOne = () => {
-    console.log('increasing, value before', counter)
-    setCounter(counter + 1)
-  }
+  const handleLeftClick = () =>
+  setClicks({ ...clicks, left: clicks.left + 1 })
 
-  const decreaseByOne = () => { 
-    console.log('decreasing, value before', counter)
-    setCounter(counter - 1)
-  }
-
-  const setToZero = () => {
-    console.log('resetting to zero, value before', counter)
-    setCounter(0)
-  }
+  const handleRightClick = () =>
+  setClicks({ ...clicks, right: clicks.right + 1 })
 
   return (
     <div>
-      <Display counter={counter} />
-      <Button handleClick={increaseByOne} text="plus" />
-      <Button handleClick={setToZero} text="zero" />
-      <Button handleClick={decreaseByOne} text="minus" />
+      <div>
+        {clicks.left}
+        <button onClick={handleLeftClick}>left</button>
+        <button onClick={handleRightClick}>right</button>
+        {clicks.right}
+      </div>
     </div>
   )
-} 
-
-// const Display = ({ counter }) => {
-//   return (
-//     <div>{counter}</div>
-//   )
-// }
-
-const Display = ({ counter }) => <div>{counter}</div>
-
-// const Button = (props) => {
-//   return (
-//     <button onClick={props.handleClick}>
-//       {props.text}
-//     </button>
-//   )
-// }
-
-const Button = ({ handleClick, text }) => (
-  <button onClick={handleClick}>
-    {text}
-  </button>
-)
+}
 
 export default App
