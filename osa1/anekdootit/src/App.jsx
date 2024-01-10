@@ -11,9 +11,8 @@ const App = () => {
     'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when dianosing patients.',
     'The only way to go fast, is to go well.'
   ]
-
-  const [votes, setVotes] = useState([]) 
   const startVotes = Array(anecdotes.length).fill(0)
+  const [votes, setVotes] = useState(startVotes) 
    
   const [selected, setSelected] = useState(0)
 
@@ -21,27 +20,36 @@ const App = () => {
     //console.log('draw anecdote pressed')
     const drawnNumber = drawMaker(anecdotes)
     setSelected(drawnNumber)
-    console.log(drawnNumber)
+    //console.log(drawnNumber)
   }
 
   const voteAnecdote = () => {
-    if (votes.length === 0) {
-      setVotes(startVotes)
+    const newVoteValue = votes[selected] + 1
+    const copy = [...votes]
+    copy[selected] = newVoteValue
+    setVotes(copy)
+  }
+
+  const mostVotes= () => {
+    let mostVoted = votes[0]
+    let mostVoted_i = 0
+    for (let i = 0; i < votes.length; i++) {
+      if (votes[i] > mostVoted){
+        mostVoted = votes[i]
+        mostVoted_i = i 
+      }
     }
-  
-    setVotes(prevVotes => {
-      const newVoteValue = prevVotes[selected] + 1
-      const copy = [...prevVotes]
-      copy[selected] = newVoteValue
-      return copy
-    })
+    return mostVoted_i    
   }
   
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       {anecdotes[selected]} has {votes[selected]} votes<br />
       <Button handleClick={voteAnecdote} text="vote" />
-      <Button handleClick={drawAnecdote} text="next anecdote" />
+      <Button handleClick={drawAnecdote} text="next anecdote" /><br />
+      <h1>Anecdote with most votes</h1>
+      {anecdotes[mostVotes()]}
     </div>
   )
 }
@@ -54,7 +62,6 @@ const Button = ({ handleClick, text }) => (
 
 const drawMaker = (props) => {
   const upperLimit = props.length
-  // const upperLimit = 5
   const drawnNumber = Math.floor(Math.random() * upperLimit)
   return(drawnNumber)
 }
