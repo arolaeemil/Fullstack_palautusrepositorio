@@ -47,7 +47,10 @@ const Display = ({ good, neutral, bad }) =>
     <p>
     good {good}<br/>
     neutral {neutral}<br/>
-    bad {bad}
+    bad {bad}<br/>
+    all {good + neutral + bad}<br/>
+    average {(good + neutral + bad)/3}<br/>
+    positive {good/(good + neutral + bad)} %
     </p>
 </div>
 
