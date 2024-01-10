@@ -50,6 +50,7 @@ const Display = ({ good, neutral, bad }) =>
 const Statistics = ({ good, neutral, bad }) =>{
 
   const total = good + neutral + bad
+  const average = (good*1 + neutral*0 + bad*-1)/total
 
   if (total === 0){
     return(
@@ -58,13 +59,22 @@ const Statistics = ({ good, neutral, bad }) =>{
   }
   return(
   <p>
-    good {good}<br/>
-    neutral {neutral}<br/>
-    bad {bad}<br/>
-    all {total}<br/>
-    average {total/3}<br/>
-    positive {good/total} %
+    {/* good {good}<br/> */}
+    <StatisticLine text="good" value ={good} />
+    <StatisticLine text="neutral" value ={neutral} />
+    <StatisticLine text="bad" value ={bad} />
+    <StatisticLine text="all" value ={total} />
+    <StatisticLine text="average" value ={average} />
+    <StatisticLine text="positive" value ={good/total} />
   </p>)
+  }
+
+const StatisticLine = (props) =>{
+  if (props.text === "positive")
+    return(
+      <>{props.text} {props.value} %<br/></>)      
+  return(
+    <>{props.text} {props.value}<br/></>)
   }
 
 export default App
