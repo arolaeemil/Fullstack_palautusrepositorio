@@ -47,14 +47,24 @@ const Display = ({ good, neutral, bad }) =>
 <Statistics good={good} neutral={neutral} bad={bad}/>
 </div>
 
-const Statistics = ({ good, neutral, bad }) =>
-<p>
-  good {good}<br/>
-  neutral {neutral}<br/>
-  bad {bad}<br/>
-  all {good + neutral + bad}<br/>
-  average {(good + neutral + bad)/3}<br/>
-  positive {good/(good + neutral + bad)} %
-</p>
+const Statistics = ({ good, neutral, bad }) =>{
+
+  const total = good + neutral + bad
+
+  if (total === 0){
+    return(
+    <p>No feedback given</p>
+    )
+  }
+  return(
+  <p>
+    good {good}<br/>
+    neutral {neutral}<br/>
+    bad {bad}<br/>
+    all {total}<br/>
+    average {total/3}<br/>
+    positive {good/total} %
+  </p>)
+  }
 
 export default App
