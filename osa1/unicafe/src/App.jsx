@@ -44,14 +44,17 @@ const Button = ({ handleClick, text }) => (
 const Display = ({ good, neutral, bad }) =>
 <div>
 <h1>statistics</h1>
-    <p>
-    good {good}<br/>
-    neutral {neutral}<br/>
-    bad {bad}<br/>
-    all {good + neutral + bad}<br/>
-    average {(good + neutral + bad)/3}<br/>
-    positive {good/(good + neutral + bad)} %
-    </p>
+<Statistics good={good} neutral={neutral} bad={bad}/>
 </div>
+
+const Statistics = ({ good, neutral, bad }) =>
+<p>
+  good {good}<br/>
+  neutral {neutral}<br/>
+  bad {bad}<br/>
+  all {good + neutral + bad}<br/>
+  average {(good + neutral + bad)/3}<br/>
+  positive {good/(good + neutral + bad)} %
+</p>
 
 export default App
