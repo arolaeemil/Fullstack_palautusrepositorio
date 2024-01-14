@@ -13,9 +13,16 @@ const App = () => {
       // important: true,
       // id: persons.length + 1,
     }
-  
-    setPersons(persons.concat(nameObject))
-    setNewName('')
+    const namemap = persons.map(person => person.name)
+    console.log(namemap)
+    if (namemap.includes(newName)) {
+      alert(`${newName} is already added to phonebook`)
+    }
+    else {
+      setPersons(persons.concat(nameObject))
+      setNewName('')}
+    // setPersons(persons.concat(nameObject))
+    // setNewName('')
   }
 
   const handleNameChange = (event) => {
@@ -41,10 +48,15 @@ const App = () => {
         </div>
       </form>
       <h2>Numbers</h2>
-        {persons.map(person =>
-          // <li key={person.name}> {person.name} </li>
-          <tr><Name key={person.name} person={person} /></tr>
-        )} 
+      <table>
+        <tbody>
+          {persons.map(person =>
+          <tr key={person.name}>
+            <td><Name person={person} /></td>
+          </tr>
+          )}
+        </tbody>
+      </table>
     </div>
   )
 
