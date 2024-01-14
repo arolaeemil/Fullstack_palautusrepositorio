@@ -1,35 +1,56 @@
+import React from 'react';
 
 const App = () => {
-  const course = {
-    name: 'Half Stack application development',
-    id: 1,
-    parts: [
-      {
-        name: 'Fundamentals of React',
-        exercises: 10,
-        id: 1
-      },
-      {
-        name: 'Using props to pass data',
-        exercises: 7,
-        id: 2
-      },
-      {
-        name: 'State of a component',
-        exercises: 14,
-        id: 3
-      },
-      {
-        name: 'Test of a component',
-        exercises: 99,
-        id: 4
-      }
-    ]
-  }
+  const courses = [
+    {
+      name: 'Half Stack application development',
+      id: 1,
+      parts: [
+        {
+          name: 'Fundamentals of React',
+          exercises: 10,
+          id: 1
+        },
+        {
+          name: 'Using props to pass data',
+          exercises: 7,
+          id: 2
+        },
+        {
+          name: 'State of a component',
+          exercises: 14,
+          id: 3
+        },
+        {
+          name: 'Redux',
+          exercises: 11,
+          id: 4
+        }
+      ]
+    }, 
+    {
+      name: 'Node.js',
+      id: 2,
+      parts: [
+        {
+          name: 'Routing',
+          exercises: 3,
+          id: 1
+        },
+        {
+          name: 'Middlewares',
+          exercises: 7,
+          id: 2
+        }
+      ]
+    }
+  ]
+
 
   return (
     <div>
-      <Course course={course} />
+      <h1>Web development curriculum</h1>
+      <Course course={courses} />
     </div>
   )
 }
@@ -39,13 +60,21 @@ export default App
 // Course
 // Koko kurssi
 const Course = (props) => {
-  const course = props.course
+  const courses = props.course
   console.log(props)
   return (
       <>
-      <Header course = {course}/>
+      {/* <Header course = {course}/>
       <Content course = {course}/>
-      <Total course = {course}/>
+      <strong><Total course = {course}/></strong> */}
+      {/* <Header key={course.id} {...course}/> */}
+      {courses.map(course => (
+      <React.Fragment key={course.id}>
+        <Header {...course}/>
+        <Content {...course}/>
+        <Total {...course}/>
+      </React.Fragment>
+      ))}
       </>
   )
 }
@@ -58,12 +87,13 @@ const Total = (props) => {
   //   const element = props.course.parts[index].exercises;
   //   total = total + element
   // }
-  const parts = props.course.parts
+  // const parts = props.course.parts
+  const parts = props.parts
   const total = parts.reduce((sum, part) => sum + part.exercises, 0)
   // console.log(total)
   return (
       <p>
-       Number of exercises {total}
+       <strong>Number of exercises {total}</strong>
       </p>
   )
 }
@@ -72,10 +102,11 @@ const Total = (props) => {
 // kurssien nimet
 const Header = (props) => {
   //console.log(props)
-  const course = props.course.name
+  // const course = props.course.name
+  const course = props.name
   return (
       <>
-        <h1>{course}</h1>
+        <h2>{course}</h2>
       </>
   )
 }
@@ -85,10 +116,17 @@ const Header = (props) => {
 const Content = (props) => {
   const newlist = []
 
-  for (let index = 0; index < props.course.parts.length; index++) {
-    const partname = props.course.parts[index].name;
-    const partexercises = props.course.parts[index].exercises;
-    const id = props.course.parts[index].id;
+  // for (let index = 0; index < props.course.parts.length; index++) {
+  //   const partname = props.course.parts[index].name;
+  //   const partexercises = props.course.parts[index].exercises;
+  //   const id = props.course.parts[index].id;
+  //   newlist.push({id: id, name: partname, exercises: partexercises})
+  // }
+
+  for (let index = 0; index < props.parts.length; index++) {
+    const partname = props.parts[index].name;
+    const partexercises = props.parts[index].exercises;
+    const id = props.parts[index].id;
     newlist.push({id: id, name: partname, exercises: partexercises})
   }  
 
