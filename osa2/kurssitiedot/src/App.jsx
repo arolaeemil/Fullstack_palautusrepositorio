@@ -53,12 +53,13 @@ const Course = (props) => {
 // Total
 // tehtävien yhteismäärä
 const Total = (props) => {
-  // const total = props.course.parts[0].exercises + props.course.parts[1].exercises + props.course.parts[2].exercises
-  let total = 0
-  for (let index = 0; index < props.course.parts.length; index++) {
-    const element = props.course.parts[index].exercises;
-    total = total + element
-  }
+  // let total = 0
+  // for (let index = 0; index < props.course.parts.length; index++) {
+  //   const element = props.course.parts[index].exercises;
+  //   total = total + element
+  // }
+  const parts = props.course.parts
+  const total = parts.reduce((sum, part) => sum + part.exercises, 0)
   // console.log(total)
   return (
       <p>
@@ -82,22 +83,12 @@ const Header = (props) => {
 // Content
 // kurssien osat ja osien tehtävämäärät
 const Content = (props) => {
-  // const part1 = props.course.parts[0].name
-  // const ex1 = props.course.parts[0].exercises
-  // const part2 = props.course.parts[1].name
-  // const ex2 = props.course.parts[1].exercises
-  // const part3 = props.course.parts[2].name
-  // const ex3 = props.course.parts[2].exercises
-  // const namelist = []
-  // const exerciselist = []
   const newlist = []
 
   for (let index = 0; index < props.course.parts.length; index++) {
     const partname = props.course.parts[index].name;
     const partexercises = props.course.parts[index].exercises;
     const id = props.course.parts[index].id;
-    // namelist.push(partname)
-    // exerciselist.push(partexercises)
     newlist.push({id: id, name: partname, exercises: partexercises})
   }  
 
