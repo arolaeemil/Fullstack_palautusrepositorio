@@ -1,9 +1,9 @@
 import { useState } from 'react'
+import Filter from './components/Filter';
+import Persons from './components/Persons';
+import Nameform from './components/Nameform';
 
 const App = () => {
-  // const [persons, setPersons] = useState([
-  //   { name: 'Arto Hellas', number: '0700123123' }
-  // ]) 
   const [persons, setPersons] = useState([
     { name: 'Arto Hellas', number: '040-123456' },
     { name: 'Ada Lovelace', number: '39-44-5323523' },
@@ -20,7 +20,6 @@ const App = () => {
     const nameObject = {
       name: newName,
       number: newNumber,
-      // id: persons.length + 1,
     }
     const namemap = persons.map(person => person.name)
     const numbermap = persons.map(person => person.number)
@@ -33,8 +32,6 @@ const App = () => {
       setPersons(persons.concat(nameObject))
       setNewName('')
       setNewNumber('')}
-    // setPersons(persons.concat(nameObject))
-    // setNewName('')
   }
 
   const handleNameChange = (event) => {
@@ -51,20 +48,6 @@ const App = () => {
     console.log(event.target.value)
     setNewFilter(event.target.value)
   }
-
-  const Name = ({ person }) => {
-    return (
-      // <li>{person.name}</li>
-      <>{person.name}</>
-    )
-  }
-
-  const Number = ({ person }) => {
-    return (
-      // <li>{person.name}</li>
-      <>{person.number}</>
-    )
-  }
   
   const namesToShow = showAll
   ? persons
@@ -74,41 +57,20 @@ const App = () => {
     <div>
       <h2>Phonebook</h2>
       <div>
-        <form>
-          Filter shown with <input value = {newFilter} onChange={handleFilterChange}/>
-        </form>
+        <Filter value={newFilter} onChange={handleFilterChange} />
       </div>
       <h2>Add a new</h2>
-      <form onSubmit={addName}> 
-        <div>
-          name: <input value = {newName} onChange={handleNameChange}/>
-        </div>
-        <div>
-          number: <input value = {newNumber} onChange={handleNumberChange}/>
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
+      <Nameform onSubmit={addName}
+        name={newName}
+        onNameChange={handleNameChange}
+        number={newNumber}
+        onNumberChange={handleNumberChange}
+      />
       <h2>Numbers</h2>
-      <table>
-        <tbody>
-          {/* {persons.map(person => */}
-          {namesToShow.map(person =>
-          <tr key={person.name}>
-            <td>
-              <Name person={person} /> &nbsp;
-              <Number person={person} />
-            </td>
-          </tr>
-          )}
-        </tbody>
-      </table>
+      <Persons personsToShow={namesToShow} />
     </div>
   )
 
 }
-
-
 
 export default App
