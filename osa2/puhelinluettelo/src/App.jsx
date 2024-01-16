@@ -8,6 +8,7 @@ import personService from './services/persons'
 const App = () => {
   const [persons, setPersons] = useState([])
   const [successMessage, setSuccessMessage] = useState(null)
+  const [errorMessage, setErrorMessage] = useState(null)
 
   useEffect(() => {
     personService
@@ -58,11 +59,17 @@ const App = () => {
             setSuccessMessage(null)
           }, 5000))
           .catch(error => {
+            setSuccessMessage(null),
             // Handle errors if necessary
-            console.error("Error updating person:", error);
-          })
-          // )
-      }  
+            console.error("Error updating person:", error),
+            setErrorMessage(
+              `Error updating person!!!`
+            ),
+            setTimeout(() => {
+              setErrorMessage(null)
+            }, 10000)})
+          }
+          // ) 
     }
     else {
       console.log(nameObject)
@@ -76,7 +83,18 @@ const App = () => {
         setTimeout(() => {
           setSuccessMessage(null)
         }, 5000)
-        )}
+        )
+        .catch(error => {
+          // Handle errors if necessary
+          setSuccessMessage(null),
+          console.error("Error adding person:", error),
+          setErrorMessage(
+            `Error adding person!!!`
+          ),
+          setTimeout(() => {
+            setErrorMessage(null)
+          }, 10000)})}
+        
       setNewName('')
       setNewNumber('')
           // axios
@@ -110,6 +128,16 @@ const App = () => {
     setTimeout(() => {
       setSuccessMessage(null)
     }, 5000))
+    .catch(error => {
+      setSuccessMessage(null),
+      // Handle errors if necessary
+      console.error("Error deleting person:", error),
+      setErrorMessage(
+        `Error deleting person!!!`
+      ),
+      setTimeout(() => {
+        setErrorMessage(null)
+      }, 10000)})
     // )
   }
   }
@@ -136,6 +164,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <ErrorNotification message={errorMessage} />
       <Notification message={successMessage} />
       <div>
         <Filter value={newFilter} onChange={handleFilterChange} />
@@ -158,11 +187,23 @@ const Notification = ({ message }) => {
   if (message === null) {
     return null
   }
-
   return (
     <div className="success">
       {message}
     </div>
+    
+  )
+}
+
+const ErrorNotification = ({ message }) => {
+  if (message === null) {
+    return null
+  }
+  return (
+    <div className="error">
+      {message}
+    </div>
+    
   )
 }
 
