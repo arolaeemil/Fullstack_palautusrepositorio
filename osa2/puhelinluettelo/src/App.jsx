@@ -48,8 +48,32 @@ const App = () => {
     const namemap = persons.map(person => person.name)
     const numbermap = persons.map(person => person.number)
     console.log(namemap)
-    if (namemap.includes(newName) || numbermap.includes(newNumber)) {
-      alert(`${newName} or ${newNumber} is already added to phonebook`)
+    // if (namemap.includes(newName) || numbermap.includes(newNumber)) {
+    //   alert(`${newName} or ${newNumber} is already added to phonebook`)
+    // }
+    if (numbermap.includes(newNumber)) {
+      alert(`${newNumber} is already belongs to someone in the phonebook!`)
+    }
+    else if (namemap.includes(newName)) {
+      const prevPerson = persons.find(person => person.name === newName)
+      const personID = prevPerson.id
+      const changedPerson = { ...prevPerson, number: newNumber }
+      console.log(changedPerson)
+      console.log(persons)
+      if (window.confirm(newName + " is already in the phonebook. Replace the old number with new one?")) {
+        // window.open(
+          personService
+          .update(personID, changedPerson)
+          .then(response => {
+            setPersons(persons.map(person => person.id !== personID ? person : response))
+            //, console.log(response)
+          })
+          .catch(error => {
+            // Handle errors if necessary
+            console.error("Error updating person:", error);
+          })
+          // )
+      }  
     }
     else {
       console.log(nameObject)
@@ -58,8 +82,8 @@ const App = () => {
       .then(returnedPerson => {
         setPersons(persons.concat(returnedPerson))}
         )}
-        setNewName('')
-        setNewNumber('')
+      setNewName('')
+      setNewNumber('')
           // axios
           // .post('http://localhost:3001/persons', nameObject)
           // .then(response => {
@@ -72,19 +96,21 @@ const App = () => {
       // setPersons(persons.concat(nameObject))
       // setNewName('')
       // setNewNumber('')}
+      console.log(persons)
   }
 
   const deletePerson = (id) => {
     const toBeDeleted = persons.filter(person => person.id === id)
     if (window.confirm("Delete " + toBeDeleted[0].name + "!?")) {
-      window.open(
+      // window.open(
     // event.preventDefault()
     personService
     .delPerson(id)
     // .then(returnedPersons => {console.log(returnedPersons)})
-    .then(() => {setPersons((prevPersons) => prevPersons.filter(person => person.id !== id));
+    .then(() => {setPersons((prevPersons) => prevPersons.filter(person => person.id !== id))
     })
-    )}
+    // )
+  }
   }
 
   const handleNameChange = (event) => {
