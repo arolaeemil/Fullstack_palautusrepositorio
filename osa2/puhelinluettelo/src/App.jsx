@@ -7,24 +7,7 @@ import personService from './services/persons'
 
 const App = () => {
   const [persons, setPersons] = useState([])
-  // const [persons, setPersons] = useState([
-  //   { name: 'Arto Hellas', number: '040-123456' },
-  //   { name: 'Ada Lovelace', number: '39-44-5323523' },
-  //   { name: 'Dan Abramov', number: '12-43-234345' },
-  //   { name: 'Mary Poppendieck', number: '39-23-6423122' }
-  // ])
-
-  // const hook = () => {
-  //   console.log('effect')
-  //   axios
-  //     .get('http://localhost:3001/persons')
-  //     .then(response => {
-  //       console.log('promise fulfilled')
-  //       setPersons(response.data)
-  //     })
-  // }
-  
-  // useEffect(hook, [])
+  const [successMessage, setSuccessMessage] = useState(null)
 
   useEffect(() => {
     personService
@@ -67,7 +50,13 @@ const App = () => {
           .then(response => {
             setPersons(persons.map(person => person.id !== personID ? person : response))
             //, console.log(response)
-          })
+          },         
+          setSuccessMessage(
+            `Number changed!`
+          ),
+          setTimeout(() => {
+            setSuccessMessage(null)
+          }, 5000))
           .catch(error => {
             // Handle errors if necessary
             console.error("Error updating person:", error);
@@ -80,7 +69,13 @@ const App = () => {
       personService
       .create(nameObject)
       .then(returnedPerson => {
-        setPersons(persons.concat(returnedPerson))}
+        setPersons(persons.concat(returnedPerson))},
+        setSuccessMessage(
+          `Person added!`
+        ),
+        setTimeout(() => {
+          setSuccessMessage(null)
+        }, 5000)
         )}
       setNewName('')
       setNewNumber('')
@@ -108,7 +103,13 @@ const App = () => {
     .delPerson(id)
     // .then(returnedPersons => {console.log(returnedPersons)})
     .then(() => {setPersons((prevPersons) => prevPersons.filter(person => person.id !== id))
-    })
+    },
+    setSuccessMessage(
+      `Person deleted :)`
+    ),
+    setTimeout(() => {
+      setSuccessMessage(null)
+    }, 5000))
     // )
   }
   }
@@ -135,6 +136,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={successMessage} />
       <div>
         <Filter value={newFilter} onChange={handleFilterChange} />
       </div>
@@ -150,6 +152,18 @@ const App = () => {
     </div>
   )
 
+}
+
+const Notification = ({ message }) => {
+  if (message === null) {
+    return null
+  }
+
+  return (
+    <div className="success">
+      {message}
+    </div>
+  )
 }
 
 export default App
