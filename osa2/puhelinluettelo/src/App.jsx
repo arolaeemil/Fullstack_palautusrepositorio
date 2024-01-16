@@ -3,6 +3,7 @@ import Filter from './components/Filter';
 import Persons from './components/Persons';
 import Nameform from './components/Nameform';
 import axios from 'axios'
+import personService from './services/persons'
 
 const App = () => {
   const [persons, setPersons] = useState([])
@@ -13,17 +14,25 @@ const App = () => {
   //   { name: 'Mary Poppendieck', number: '39-23-6423122' }
   // ])
 
-  const hook = () => {
-    console.log('effect')
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        console.log('promise fulfilled')
-        setPersons(response.data)
-      })
-  }
+  // const hook = () => {
+  //   console.log('effect')
+  //   axios
+  //     .get('http://localhost:3001/persons')
+  //     .then(response => {
+  //       console.log('promise fulfilled')
+  //       setPersons(response.data)
+  //     })
+  // }
   
-  useEffect(hook, [])
+  // useEffect(hook, [])
+
+  useEffect(() => {
+    personService
+      .getAll()
+      .then(initialPersons => {
+        setPersons(initialPersons)
+      })
+  }, [])
 
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
@@ -44,31 +53,39 @@ const App = () => {
     }
     else {
       console.log(nameObject)
-          axios
-          .post('http://localhost:3001/persons', nameObject)
-          .then(response => {
-            // console.log(response)
-            setPersons(persons.concat(response.data))
-            setNewName('')
-            setNewNumber('')
-          })}
+      personService
+      .create(nameObject)
+      .then(returnedPerson => {
+        setPersons(persons.concat(returnedPerson))}
+        )}
+        setNewName('')
+        setNewNumber('')
+          // axios
+          // .post('http://localhost:3001/persons', nameObject)
+          // .then(response => {
+          //   // console.log(response)
+          //   setPersons(persons.concat(response.data))
+          //   setNewName('')
+          //   setNewNumber('')
+          // }
+          // )}
       // setPersons(persons.concat(nameObject))
       // setNewName('')
       // setNewNumber('')}
   }
 
   const handleNameChange = (event) => {
-    console.log(event.target.value)
+    //console.log(event.target.value)
     setNewName(event.target.value)
   }
 
   const handleNumberChange = (event) => {
-    console.log(event.target.value)
+    //console.log(event.target.value)
     setNewNumber(event.target.value)
   }
 
   const handleFilterChange = (event) => {
-    console.log(event.target.value)
+    //console.log(event.target.value)
     setNewFilter(event.target.value)
   }
   
