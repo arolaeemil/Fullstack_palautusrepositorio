@@ -74,6 +74,19 @@ const App = () => {
       // setNewNumber('')}
   }
 
+  const deletePerson = (id) => {
+    const toBeDeleted = persons.filter(person => person.id === id)
+    if (window.confirm("Delete " + toBeDeleted[0].name + "!?")) {
+      window.open(
+    // event.preventDefault()
+    personService
+    .delPerson(id)
+    // .then(returnedPersons => {console.log(returnedPersons)})
+    .then(() => {setPersons((prevPersons) => prevPersons.filter(person => person.id !== id));
+    })
+    )}
+  }
+
   const handleNameChange = (event) => {
     //console.log(event.target.value)
     setNewName(event.target.value)
@@ -107,7 +120,7 @@ const App = () => {
         onNumberChange={handleNumberChange}
       />
       <h2>Numbers</h2>
-      <Persons personsToShow={namesToShow} />
+      <Persons personsToShow={namesToShow} submitDelete={deletePerson}/>
     </div>
   )
 

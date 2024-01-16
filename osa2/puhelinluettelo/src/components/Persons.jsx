@@ -1,4 +1,4 @@
-const Persons = ({ personsToShow }) => {
+const Persons = ({ personsToShow, submitDelete }) => {
   return (
     <table>
       <tbody>
@@ -6,7 +6,8 @@ const Persons = ({ personsToShow }) => {
           <tr key={person.name}>
             <td>
               {person.name} &nbsp;
-              {person.number}
+              {person.number} &nbsp;
+              <button onClick = {() => submitDelete(person.id)} type="submit">delete</button>
             </td>
           </tr>
         ))}
