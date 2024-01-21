@@ -24,6 +24,10 @@ function App() {
     setNewFilter(event.target.value)
   }
 
+  const showCountry = (name) => {
+    setNewFilter(name)
+  }
+
   const countriesToShow = showAll
   ? countries
   : countries.filter(country => country.name.common.toLowerCase().includes(newFilter.toLowerCase()))
@@ -34,7 +38,7 @@ function App() {
       <div>
         <Filter value={newFilter} onChange={handleFilterChange} />
       </div>
-      <Countries countriesToShow={countriesToShow}/>
+      <Countries countriesToShow={countriesToShow} showCountry={showCountry}/>
     </div>
   )
 }

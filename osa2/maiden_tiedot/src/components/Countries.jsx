@@ -1,4 +1,4 @@
-const Countries = ({countriesToShow}) => {
+const Countries = ({countriesToShow, showCountry}) => {
   if (countriesToShow.length>10) {
     return (
       <>
@@ -33,6 +33,7 @@ const Countries = ({countriesToShow}) => {
           <tr key={country.name.common}>
             <td>
               {country.name.common}
+              <button onClick = {() => showCountry(country.name.common)} type="submit">Show</button>
             </td>
           </tr>
         ))}
