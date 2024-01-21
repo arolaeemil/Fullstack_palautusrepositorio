@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import countryService from './services/countries'
+// import weatherService from './services/weather'
 import Filter from './components/Filter'
 import Countries from './components/Countries'
 
@@ -8,14 +9,17 @@ function App() {
   const [countries, setCountries] = useState([])
   const [newFilter, setNewFilter] = useState('')
   const [showAll, setShowAll] = useState(false)
+  // const apikey = import.meta.env.VITE_SOME_KEY
+  const apikey = '15152f0e8d969fb537527d3b6347ac34'
 
+  //console.log(apikey)
+
+  //country list
   useEffect(() => {
     countryService
       .getAll()
       .then(initialCountries => {
         setCountries(initialCountries)
-      // .then(response => {
-      //   setNotes(response.data)
       })
   }, [])
 
@@ -38,7 +42,7 @@ function App() {
       <div>
         <Filter value={newFilter} onChange={handleFilterChange} />
       </div>
-      <Countries countriesToShow={countriesToShow} showCountry={showCountry}/>
+      <Countries countriesToShow={countriesToShow} showCountry={showCountry} apikey = {apikey}/>
     </div>
   )
 }
