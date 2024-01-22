@@ -9,8 +9,7 @@ function App() {
   const [countries, setCountries] = useState([])
   const [newFilter, setNewFilter] = useState('')
   const [showAll, setShowAll] = useState(false)
-  // const apikey = import.meta.env.VITE_SOME_KEY
-  const apikey = '15152f0e8d969fb537527d3b6347ac34'
+  const apikey = import.meta.env.VITE_SOME_KEY
 
   //console.log(apikey)
 
