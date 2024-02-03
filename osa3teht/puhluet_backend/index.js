@@ -69,12 +69,28 @@ const generateId = () => {
   return randomizedID
 }
 
+const isAlready = (searchName) => {
+  const isFound = persons.some(person => person.name === searchName)
+  return isFound
+}
+
+
 app.post('/api/persons', (request, response) => {
   const body = request.body
 
-  if (!body.name || !body.number) {
+  if (!body.name) {
     return response.status(400).json({ 
-      error: 'name or number missing' 
+      error: 'name missing' 
+    })
+  }
+  else if (!body.number) {
+    return response.status(400).json({ 
+      error: 'number missing' 
+    })
+  }
+  else if (isAlready(body.name)) {
+    return response.status(400).json({ 
+      error: 'name must be unique' 
     })
   }
 
