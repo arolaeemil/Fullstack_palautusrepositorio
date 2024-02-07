@@ -13,28 +13,28 @@ app.use(express.static('dist'))
 morgan.token('req-body', (req) => JSON.stringify(req.body))
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :req-body'))
 
-let persons = [
-    {
-      id: 1,
-      name: "Arto Hellas",
-      number: "040-123456"
-    },
-    {
-      id: 2,
-      name: "Ada Lovelace",
-      number: "39-44-5323523"
-    },
-    {
-      id: 3,
-      name: "Dan Abramov",
-      number: "12-43-234345"
-    },
-    {
-      id: 4,
-      name: "Mary Poppendick",
-      number: "39-23-6423122"
-    },
-  ]
+// let persons = [
+//     {
+//       id: 1,
+//       name: "Arto Hellas",
+//       number: "040-123456"
+//     },
+//     {
+//       id: 2,
+//       name: "Ada Lovelace",
+//       number: "39-44-5323523"
+//     },
+//     {
+//       id: 3,
+//       name: "Dan Abramov",
+//       number: "12-43-234345"
+//     },
+//     {
+//       id: 4,
+//       name: "Mary Poppendick",
+//       number: "39-23-6423122"
+//     },
+//   ]
 
 const errorHandler = (error, request, response, next) => {
   console.error(error.message)
@@ -53,11 +53,17 @@ app.get('/', (request, response) => {
 // app.get('/api/persons', (request, response) => {
 //   response.json(persons);
 // })
-app.get('/api/persons', (request, response) => {
+
+app.get('/api/persons', (request, response, next) => {
   Person.find({}).then(persons => {
-    response.json(persons)
-  })
+    if (persons) {
+      response.json(persons)
+    } else {
+      response.status(404).end()
+    }})
+    .catch(error => next(error))
 })
+
 // app.get('/api/persons/:id', (request, response) => {
 //   const id = Number(request.params.id)
 //   const person = persons.find(person => person.id === id)
@@ -69,10 +75,16 @@ app.get('/api/persons', (request, response) => {
 //   }
 // })
 
-app.get('/api/persons/:id', (request, response) => {
-  Note.findById(request.params.id).then(person => {
-    response.json(person)
-  })
+app.get('/api/persons/:id', (request, response, next) => {
+  Person.findById(request.params.id).then(person => {
+  //   response.json(person)
+  // })
+    if (person) {
+      response.json(person)
+    } else {
+      response.status(404).end()
+    }})
+    .catch(error => next(error))
 })
 
 app.get('/api/info', (request, response) => {
@@ -83,7 +95,7 @@ app.get('/api/info', (request, response) => {
   response.send(responsestring1 + responsestring2)
 })
 
-app.delete('/api/persons/:id', (request, response) => {
+app.delete('/api/persons/:id', (request, response, next) => {
 //   const id = Number(request.params.id)
 //   persons = persons.filter(person => person.id !== id)
 
@@ -96,14 +108,14 @@ app.delete('/api/persons/:id', (request, response) => {
   .catch(error => next(error))
 })
 
-const generateId = () => {
-  const minvalue = 0
-  const maxvalue = 10000
-  const min = Math.ceil(minvalue)
-  const max = Math.floor(maxvalue)
-  const randomizedID = Math.floor(Math.random() * (max - min + 1)) + min
-  return randomizedID
-}
+// const generateId = () => {
+//   const minvalue = 0
+//   const maxvalue = 10000
+//   const min = Math.ceil(minvalue)
+//   const max = Math.floor(maxvalue)
+//   const randomizedID = Math.floor(Math.random() * (max - min + 1)) + min
+//   return randomizedID
+// }
 
 const isAlready = (searchName) => {
   const isFound = persons.some(person => person.name === searchName)
@@ -141,10 +153,10 @@ const isAlready = (searchName) => {
 //   response.json(person)
 // })
 
-app.post('/api/persons', (request, response) => {
+app.post('/api/persons', (request, response, next) => {
   const body = request.body
 
-  if (body.name === undefined || body.number === undefined ) {
+  if (!body.name || !body.number ) {
     return response.status(400).json({ error: 'content missing' })
   }
 
@@ -156,6 +168,7 @@ app.post('/api/persons', (request, response) => {
   person.save().then(savedPerson => {
     response.json(savedPerson)
   })
+  .catch(error => next(error))
 })
 
 app.use(errorHandler)
