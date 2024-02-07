@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+// const mongoose = require('mongoose')
 require('dotenv').config()
 const Person = require('./models/person')
 const express = require('express')
@@ -49,23 +49,23 @@ app.get('/api/persons/:id', (request, response, next) => {
 })
 
 app.get('/api/info', (request, response, next) => {
-  const person_amount = Person.find({})
+  Person.find({})
     .then(persons => {
-      const person_amount = persons.length;
-      const time_now = new Date();
-      const responsestring1 = '<h3>Phonebook has info for ' + person_amount + ' people</h3>';
-      const responsestring2 = '<h3>' + time_now + '</h3>';
-      response.send(responsestring1 + responsestring2);
+      const person_amount = persons.length
+      const time_now = new Date()
+      const responsestring1 = '<h3>Phonebook has info for ' + person_amount + ' people</h3>'
+      const responsestring2 = '<h3>' + time_now + '</h3>'
+      response.send(responsestring1 + responsestring2)
     })
     .catch(error => next(error))
 })
 
 app.delete('/api/persons/:id', (request, response, next) => {
   Person.findByIdAndDelete(request.params.id)
-  .then(result => {
-    response.status(204).end()
-  })
-  .catch(error => next(error))
+    .then(result => {
+      response.status(204).end()
+    })
+    .catch(error => next(error))
 })
 
 app.put('/api/persons/:id', (request, response, next) => {
@@ -101,7 +101,7 @@ app.post('/api/persons', (request, response, next) => {
   person.save().then(savedPerson => {
     response.json(savedPerson)
   })
-  .catch(error => next(error))
+    .catch(error => next(error))
 })
 
 app.use(errorHandler)

@@ -8,7 +8,8 @@
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:ui": "rm -rf dist && cd ../../osa2/osa3_frontend && npm run build && cp -r dist ../../osa3/part3",
-    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push"
+    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push",
+    "lint": "eslint ."
   },
   "author": "Eemil Arola",
   "license": "ISC",
@@ -19,6 +20,9 @@
     "mongoose": "^8.1.1"
   },
   "devDependencies": {
+    "eslint": "^8.56.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.29.1",
     "nodemon": "^3.0.3"
   }
 }

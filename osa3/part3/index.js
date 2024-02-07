@@ -9,7 +9,7 @@
 //   response.end('Hello World')
 // })
 
-const mongoose = require('mongoose')
+// const mongoose = require('mongoose')
 require('dotenv').config()
 
 // const password = process.argv[2]
@@ -69,23 +69,23 @@ const errorHandler = (error, request, response, next) => {
 }
 
 
-let notes = [
-    {
-      id: 1,
-      content: "HTML is easy",
-      important: true
-    },
-    {
-      id: 2,
-      content: "Browser can execute only JavaScript",
-      important: false
-    },
-    {
-      id: 3,
-      content: "GET and POST are the most important methods of HTTP protocol",
-      important: true
-    }
-  ]
+// let notes = [
+//   {
+//     id: 1,
+//     content: 'HTML is easy',
+//     important: true
+//   },
+//   {
+//     id: 2,
+//     content: 'Browser can execute only JavaScript',
+//     important: false
+//   },
+//   {
+//     id: 3,
+//     content: 'GET and POST are the most important methods of HTTP protocol',
+//     important: true
+//   }
+// ]
 // const app = http.createServer((request, response) => {
 //   response.writeHead(200, { 'Content-Type': 'application/json' })
 //   response.end(JSON.stringify(notes))
@@ -115,22 +115,22 @@ app.get('/api/notes', (request, response) => {
 //   }
 // })
 
-app.get('/api/notes/:id', (request, response) => {
+app.get('/api/notes/:id', (request, response,next) => {
   Note.findById(request.params.id).then(note => {
   //   response.json(note)
   // })
-  if (note) {
-    response.json(note)
-  } else {
-    response.status(404).end()
-  }
-})
-// .catch(error => {
-//   console.log(error)
-//   // response.status(500).end()
-//   response.status(400).send({ error: 'malformatted id' })
-// })
-.catch(error => next(error))
+    if (note) {
+      response.json(note)
+    } else {
+      response.status(404).end()
+    }
+  })
+  // .catch(error => {
+  //   console.log(error)
+  //   // response.status(500).end()
+  //   response.status(400).send({ error: 'malformatted id' })
+  // })
+    .catch(error => next(error))
 })
 
 // app.delete('/api/notes/:id', (request, response) => {
@@ -148,19 +148,19 @@ app.delete('/api/notes/:id', (request, response, next) => {
     .catch(error => next(error))
 })
 
-const generateId = () => {
-  const maxId = notes.length > 0
-    ? Math.max(...notes.map(n => n.id))
-    : 0
-  return maxId + 1
-}
+// const generateId = () => {
+//   const maxId = notes.length > 0
+//     ? Math.max(...notes.map(n => n.id))
+//     : 0
+//   return maxId + 1
+// }
 
 // app.post('/api/notes', (request, response) => {
 //   const body = request.body
 
 //   if (!body.content) {
-//     return response.status(400).json({ 
-//       error: 'content missing' 
+//     return response.status(400).json({
+//       error: 'content missing'
 //     })
 //   }
 
@@ -190,7 +190,7 @@ app.post('/api/notes', (request, response, next) => {
   note.save().then(savedNote => {
     response.json(savedNote)
   })
-  .catch(error => next(error))
+    .catch(error => next(error))
 })
 
 app.put('/api/notes/:id', (request, response, next) => {
@@ -204,10 +204,10 @@ app.put('/api/notes/:id', (request, response, next) => {
 
   // Note.findByIdAndUpdate(request.params.id, note, { new: true })
   Note.findByIdAndUpdate(
-    request.params.id, 
+    request.params.id,
     { content, important },
     { new: true, runValidators: true, context: 'query' }
-  ) 
+  )
     .then(updatedNote => {
       response.json(updatedNote)
     })

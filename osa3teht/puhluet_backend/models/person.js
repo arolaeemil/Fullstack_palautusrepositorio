@@ -18,18 +18,18 @@ const validateNumber = function(givenNumber) {
   return numberRegex.test(givenNumber)
 }
 const personSchema = new mongoose.Schema({
-    name: {
-      type: String,
-      minlength: 3,
-      required: true
-    },
-    number: {
-      type: String,
-      validate: {
-          validator: validateNumber,
-          message: 'Phone number format is invalid. Min 8 letters long and must be like 2/3 numbers then - and then rest of the numbers. Example: 000-11111'
-      }
+  name: {
+    type: String,
+    minlength: 3,
+    required: true
+  },
+  number: {
+    type: String,
+    validate: {
+      validator: validateNumber,
+      message: 'Phone number format is invalid. Min 8 letters long and must be like 2/3 numbers then - and then rest of the numbers. Example: 000-11111'
     }
+  }
 })
 
 personSchema.set('toJSON', {
