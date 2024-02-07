@@ -93,6 +93,7 @@ const App = () => {
           if (start_index !== -1 && end_index !== -1) {
               meaningful_part = error_message.substring(start_index, end_index)
           }
+          meaningful_part = error.response.data  
           setSuccessMessage(null),
           console.error("Error adding person:", error),
           setErrorMessage(
