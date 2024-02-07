@@ -86,10 +86,17 @@ const App = () => {
         )
         .catch(error => {
           // Handle errors if necessary
+          const error_message = error.response.data
+          const start_index = error_message.indexOf("ValidationError:")
+          const end_index = error_message.indexOf("<br>", start_index)
+          let meaningful_part = ""
+          if (start_index !== -1 && end_index !== -1) {
+              meaningful_part = error_message.substring(start_index, end_index)
+          }
           setSuccessMessage(null),
           console.error("Error adding person:", error),
           setErrorMessage(
-            `Error adding person!!!`
+            `Error adding person!!! ${meaningful_part}`
           ),
           setTimeout(() => {
             setErrorMessage(null)
