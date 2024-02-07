@@ -108,6 +108,24 @@ app.delete('/api/persons/:id', (request, response, next) => {
   .catch(error => next(error))
 })
 
+app.put('/api/persons/:id', (request, response, next) => {
+
+  const updatedPerson = {
+    name: request.body.name,
+    number: request.body.number
+  }
+
+  Person.findByIdAndUpdate(request.params.id, updatedPerson, { new: true })
+    .then(updatedPerson => {
+      if (updatedPerson) {
+        response.json(updatedPerson)
+      } else {
+        response.status(404).end()
+      }
+    })
+    .catch(error => next(error))
+})
+
 // const generateId = () => {
 //   const minvalue = 0
 //   const maxvalue = 10000
