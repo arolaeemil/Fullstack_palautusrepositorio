@@ -86,18 +86,20 @@ const App = () => {
         )
         .catch(error => {
           // Handle errors if necessary
-          const error_message = error.response.data
-          const start_index = error_message.indexOf("ValidationError:")
-          const end_index = error_message.indexOf("<br>", start_index)
-          let meaningful_part = ""
-          if (start_index !== -1 && end_index !== -1) {
-              meaningful_part = error_message.substring(start_index, end_index)
-          }
-          meaningful_part = error.response.data  
+          // const error_message = error.response.data
+          // const start_index = error_message.indexOf("ValidationError:")
+          // const end_index = error_message.indexOf("<br>", start_index)
+          // let meaningful_part = ""
+          // if (start_index !== -1 && end_index !== -1) {
+          //     meaningful_part = error_message.substring(start_index, end_index)
+          // }
+          // if (meaningful_part === ""){
+          // meaningful_part = error.response.data  
+          // }
           setSuccessMessage(null),
           console.error("Error adding person:", error),
           setErrorMessage(
-            `Error adding person!!! ${meaningful_part}`
+            `Error adding person!!! ${error.response.data.error}`
           ),
           setTimeout(() => {
             setErrorMessage(null)
