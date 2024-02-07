@@ -87,12 +87,21 @@ app.get('/api/persons/:id', (request, response, next) => {
     .catch(error => next(error))
 })
 
-app.get('/api/info', (request, response) => {
-  const person_amount = persons.length
-  const time_now = new Date()
-  const responsestring1 = '<h3>Phonebook has info for ' + person_amount + ' people'
-  const responsestring2 = '<h3>' + time_now + '</h3>'
-  response.send(responsestring1 + responsestring2)
+app.get('/api/info', (request, response, next) => {
+  // const person_amount = persons.length
+  const person_amount = Person.find({})
+    .then(persons => {
+      const person_amount = persons.length;
+      const time_now = new Date();
+      const responsestring1 = '<h3>Phonebook has info for ' + person_amount + ' people</h3>';
+      const responsestring2 = '<h3>' + time_now + '</h3>';
+      response.send(responsestring1 + responsestring2);
+    })
+    .catch(error => next(error))
+  // const time_now = new Date()
+  // const responsestring1 = '<h3>Phonebook has info for ' + person_amount + ' people'
+  // const responsestring2 = '<h3>' + time_now + '</h3>'
+  // response.send(responsestring1 + responsestring2)
 })
 
 app.delete('/api/persons/:id', (request, response, next) => {
