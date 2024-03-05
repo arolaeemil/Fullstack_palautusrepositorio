@@ -4,13 +4,13 @@ h1 {
   }
 
 li {
-color: grey;
+color: rgb(255, 0, 242);
 padding-top: 3px;
 font-size: 15px;
 }
 
-.note {
-    color: grey;
+.blog {
+    color: rgb(4, 0, 255);
     padding-top: 5px;
     font-size: 15px;
   }
@@ -23,4 +23,8 @@ border-style: solid;
 border-radius: 5px;
 padding: 10px;
 margin-bottom: 10px;
+}
+
+.blogpart {
+  color: rgb(234, 0, 255);
 }

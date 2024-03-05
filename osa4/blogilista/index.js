@@ -31,6 +31,7 @@ mongoose.connect(url)
 
 app.use(cors())
 app.use(express.json())
+app.use(express.static('dist'))
 
 app.get('/api/blogs', (request, response) => {
   Blog
@@ -50,7 +51,7 @@ app.post('/api/blogs', (request, response) => {
     })
 })
 
-const PORT = 3003
+const PORT = 3001
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })

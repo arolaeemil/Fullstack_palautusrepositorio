@@ -20,11 +20,21 @@ const Footer = () => {
 
 const App = (props) => {
   const [blogs, setBlogs] = useState([])
-  const [newBlog, setNewBlog] = useState(
-    'a new blog...'
+  // const [newBlog, setNewBlog] = useState(
+  //   'Blog here...'
+  // )
+  const [newBlogAuthor, setNewBlogAuthor] = useState(
+    'Author here...'
+  )
+  const [newBlogTitle, setNewBlogTitle] = useState(
+    'Title here...'
+  )
+  const [newBlogUrl, setNewBlogUrl] = useState(
+    'Url here...'
   )
   const [showAll, setShowAll] = useState(true)
-  const [errorMessage, setErrorMessage] = useState('some error happened...')
+  // const [errorMessage, setErrorMessage] = useState('some error happened...')
+   const [errorMessage, setErrorMessage] = useState(null)
 
   useEffect(() => {
     blogService
@@ -39,8 +49,10 @@ const App = (props) => {
   const addBlog = (event) => {
     event.preventDefault()
     const blogObject = {
-      content: newBlog,
-      important: Math.random() > 0.5,
+      author: newBlogAuthor,
+      title: newBlogTitle,
+      url: newBlogUrl,
+      likes: 0
     }
     blogService
     .create(blogObject)
@@ -71,8 +83,20 @@ const App = (props) => {
   }
 
 
-  const handleBlogChange = (event) => {
-    setNewBlog(event.target.value)
+  // const handleBlogChange = (event) => {
+  //   setNewBlog(event.target.value)
+  // }
+
+  const handleBlogAuthorChange = (event) => {
+    setNewBlogAuthor(event.target.value)
+  }
+
+  const handleBlogTitleChange = (event) => {
+    setNewBlogTitle(event.target.value)
+  }
+
+  const handleBlogUrlChange = (event) => {
+    setNewBlogUrl(event.target.value)
   }
 
   const blogsToShow = showAll
@@ -84,9 +108,9 @@ const App = (props) => {
       <h1>Blogs</h1>
       <Notification message={errorMessage} />
       <div>
-        <button onClick={() => setShowAll(!showAll)}>
+        {/* <button onClick={() => setShowAll(!showAll)}>
           show {showAll ? 'important' : 'all' }
-        </button>
+        </button> */}
       </div>
       <ul>
         {blogsToShow.map(blog =>
@@ -94,9 +118,18 @@ const App = (props) => {
         )}
       </ul>   
       <form onSubmit={addBlog}>
-        <input value={newBlog}
-        onChange={handleBlogChange}/>
-        
+        {/* <input value={newBlog}
+        onChange={handleBlogChange}/> */}
+
+        <input value={newBlogAuthor}
+        onChange={handleBlogAuthorChange}/>
+
+        <input value={newBlogTitle}
+        onChange={handleBlogTitleChange}/>
+
+        <input value={newBlogUrl}
+        onChange={handleBlogUrlChange}/>
+
         <button type="submit">save</button>
       </form>  
       <Footer />

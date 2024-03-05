@@ -14,8 +14,10 @@ mongoose.set('strictQuery', false)
 mongoose.connect(url)
 
 const blogSchema = new mongoose.Schema({
-  content: String,
-  important: Boolean,
+  title: String,
+  author: String,
+  url: String,
+  likes: Number
 })
 
 const Blog = mongoose.model('Blog', blogSchema)
