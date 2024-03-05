@@ -32,6 +32,10 @@ const App = (props) => {
   const [newBlogUrl, setNewBlogUrl] = useState(
     'Url here...'
   )
+  const [newBlogLikes, setNewBlogLikes] = useState(
+    'Likes amount here...'
+  )
+
   const [showAll, setShowAll] = useState(true)
   // const [errorMessage, setErrorMessage] = useState('some error happened...')
    const [errorMessage, setErrorMessage] = useState(null)
@@ -52,7 +56,7 @@ const App = (props) => {
       author: newBlogAuthor,
       title: newBlogTitle,
       url: newBlogUrl,
-      likes: 0
+      likes: newBlogLikes
     }
     blogService
     .create(blogObject)
@@ -99,6 +103,10 @@ const App = (props) => {
     setNewBlogUrl(event.target.value)
   }
 
+  const handleBlogLikesChange = (event) => {
+    setNewBlogLikes(event.target.value)
+  }
+
   const blogsToShow = showAll
   ? blogs
   : blogs.filter(blog => blog.important === true)
@@ -129,6 +137,9 @@ const App = (props) => {
 
         <input value={newBlogUrl}
         onChange={handleBlogUrlChange}/>
+
+        <input value={newBlogLikes}
+        onChange={handleBlogLikesChange}/>
 
         <button type="submit">save</button>
       </form>  
