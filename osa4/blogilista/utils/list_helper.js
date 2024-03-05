@@ -22,10 +22,27 @@ const favoriteBlog = (blogs) => {
     }
     return return_obj
 }
+
+const mostBlogs = (blogs) => {
+    let mostBlogsAuthor = null
+    let mostBlogsAmount = 0
+    const authorCount = {}
+
+    for (let obj of blogs) {
+        const author = obj.author
+        authorCount[author] = (authorCount[author] || 0) + 1
+        if (authorCount[author] > mostBlogsAmount) {
+            mostBlogsAmount = authorCount[author]
+            mostBlogsAuthor = author
+        }
+    }
+    return {author: mostBlogsAuthor, blogs: mostBlogsAmount}
+}
   
 module.exports = {
 dummy,
 totalLikes,
-favoriteBlog
+favoriteBlog,
+mostBlogs
 }
 
