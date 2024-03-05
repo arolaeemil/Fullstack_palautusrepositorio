@@ -6,13 +6,26 @@ const dummy = (blogs) => {
 const totalLikes = (blogs) => {
     let totalCount = 0
     for (let obj of blogs) {
-        totalCount += obj.likes;
+        totalCount += obj.likes
     }
     return totalCount
+}
+
+const favoriteBlog = (blogs) => {
+    let favLikes = 0
+    let return_obj = null
+    for (let obj of blogs) {
+        if (obj.likes >= favLikes){
+            favLikes = obj.likes
+            return_obj = obj
+        }
+    }
+    return return_obj
 }
   
 module.exports = {
 dummy,
-totalLikes
+totalLikes,
+favoriteBlog
 }
 
