@@ -38,11 +38,28 @@ const mostBlogs = (blogs) => {
     }
     return {author: mostBlogsAuthor, blogs: mostBlogsAmount}
 }
+
+const mostLikes = (blogs) => {
+    let mostLikesAuthor = null
+    let mostLikesAmount = 0
+    const authorCount = {}
+
+    for (let obj of blogs) {
+        const author = obj.author
+        authorCount[author] = (authorCount[author] || 0) + obj.likes
+        if (authorCount[author] > mostLikesAmount) {
+            mostLikesAmount = authorCount[author]
+            mostLikesAuthor = author
+        }
+    }
+    return {author: mostLikesAuthor, likes: mostLikesAmount}
+}
   
 module.exports = {
 dummy,
 totalLikes,
 favoriteBlog,
-mostBlogs
+mostBlogs,
+mostLikes
 }
 
