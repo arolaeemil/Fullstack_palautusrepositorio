@@ -92,6 +92,41 @@ describe('when there is initially some blogs saved', () => {
         .send(newBlog)
         .expect(400)
     })
+
+    describe('deletion of a blog', () => {
+        test('succeeds with status code 204 if id is valid', async () => {
+            const blogsAtStart = await helper.blogsInDb()
+            const blogToDelete = blogsAtStart[0]
+
+            await api
+            .delete(`/api/blogs/${blogToDelete.id}`)
+            .expect(204)
+
+            const blogsAtEnd = await helper.blogsInDb()
+            //console.log(blogsAtEnd)
+            assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length - 1)
+
+            const contents = blogsAtEnd.map(blog => blog.title)
+            assert(!contents.includes(blogToDelete.title))
+        })
+    })
+    
+    describe('altering of a blog', () => {
+        test('succeeds with like amount change with status code 201', async () => {
+            const blogsAtStart = await helper.blogsInDb()
+            const blogToChange = blogsAtStart[0]
+            const updatedBlog = { ...blogToChange, likes: 100 }
+            await api
+            .put(`/api/blogs/${blogToChange.id}`)
+            .send(updatedBlog)
+            .expect(201)
+
+            const blogsAtEnd = await helper.blogsInDb()
+            //console.log(blogsAtEnd)
+            const changedBlog = blogsAtEnd[0]
+            assert.strictEqual(changedBlog.likes, 100)
+        })
+    })
 })
 
 after(async () => {
