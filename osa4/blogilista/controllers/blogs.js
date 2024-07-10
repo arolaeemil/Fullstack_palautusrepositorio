@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const blogsRouter = require('express').Router()
 const Blog = require('../models/blog')
 
@@ -6,6 +7,7 @@ blogsRouter.get('/', (request, response) => {
     response.json(blogs)
   })
 })
+
 
 blogsRouter.post('/', (request, response, next) => {
     const body = request.body
