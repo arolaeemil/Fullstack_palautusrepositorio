@@ -9,12 +9,12 @@ Content-Type: application/json
 
 ###post a blog
 POST http://localhost:3001/api/blogs
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RfdXNlcm5hbWUyIiwiaWQiOiI2NjljMTk5MTFiYjljNjBlMjY2OGYwM2QiLCJpYXQiOjE3MjE1MDYyMTN9.IhUZc_O4ACIbPnGOXk75PXsaAajy_WEeQgVhbIEUu6A
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RfdXNlcm5hbWUyIiwiaWQiOiI2NjljMTk5MTFiYjljNjBlMjY2OGYwM2QiLCJpYXQiOjE3MjE1MDkzMzl9.BH8Lqw8Oyi7NZc6mFX98uO8gwQYkNqABsfJoeODlem0
 Content-Type: application/json
 
 {
   "author": "Is?",
   "title": "This?",
   "url": "Token?",
-  "likes": 1
+  "likes": 4
 }

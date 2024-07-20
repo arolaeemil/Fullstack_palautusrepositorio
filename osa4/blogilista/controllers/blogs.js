@@ -1,7 +1,8 @@
 /* eslint-disable no-undef */
 const blogsRouter = require('express').Router()
 const Blog = require('../models/blog')
-const User = require('../models/user')
+//VIIMEISIN
+//const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 
 /* const getTokenFrom = request => {
@@ -42,19 +43,25 @@ blogsRouter.get('/', async (request, response) => {
 blogsRouter.post('/', async (request, response, next) => {
   try {
     const body = request.body
+    const user = request.user
+    //console.log("user info:")
+    //console.log(request.user)
 
-/*     const decodedToken = jwt.verify(getTokenFrom(request), process.env.SECRET)
+    /* const decodedToken = jwt.verify(getTokenFrom(request), process.env.SECRET)
     if (!decodedToken.id) {
       return response.status(401).json({ error: 'token invalid' })
     } */
 
-    const decodedToken = jwt.verify(request.token, process.env.SECRET)
+    //VIIMEISIN
+    /* const decodedToken = jwt.verify(request.token, process.env.SECRET)
     if (!decodedToken) {
       return response.status(401).json({ error: 'Token missing or invalid' })
-    }
+    } */
 
     //const chosenuser = await User.findOne()
-    const user = await User.findById(decodedToken.id)
+
+    //VIIMEISIN
+    //const user = await User.findById(decodedToken.id)
 
     const blog = new Blog({
       author: body.author,
@@ -63,9 +70,17 @@ blogsRouter.post('/', async (request, response, next) => {
       likes: body.likes,
       //user: chosenuser,
       //user: user._id
-      user: user
+      user: request.user._id
     })
+
     const savedBlog = await blog.save()
+    //console.log("new blog id:")
+    //console.log(savedBlog._id)
+    //console.log("user blogs:")
+    //console.log(user.blogs)
+    user.blogs = user.blogs.concat(savedBlog._id)
+    await user.save()
+
     response.json(savedBlog)
   } catch (error) {
     next(error)
@@ -73,11 +88,12 @@ blogsRouter.post('/', async (request, response, next) => {
 })
 
 blogsRouter.delete('/:id', async (request, response) => {
-  const decodedToken = jwt.verify(request.token, process.env.SECRET)
+/*   const decodedToken = jwt.verify(request.token, process.env.SECRET)
   if (!decodedToken) {
     return response.status(401).json({ error: 'Token missing or invalid' })
   }
-  const userId = decodedToken.id
+  const userId = decodedToken.id */
+  const userId = request.user._id
   const targetBlog = await Blog.findById(request.params.id)
   if (targetBlog) {
     if (targetBlog.user.toString() === userId.toString()){
