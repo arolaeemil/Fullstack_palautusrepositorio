@@ -1,0 +1,20 @@
+###login
+POST http://localhost:3001/api/login
+Content-Type: application/json
+
+{
+  "username": "test_username",
+  "password": "testpassword"
+}
+
+###post a blog
+POST http://localhost:3001/api/blogs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RfdXNlcm5hbWUiLCJpZCI6IjY2OWMwOTk0YTBkZjNiMTY2ZGMxNjBhMiIsImlhdCI6MTcyMTUwNDA2NX0.W9vATMYBrIooa5FygMeQgupf9AScO4jFIZZqAGIFt9E
+Content-Type: application/json
+
+{
+  "author": "Is?",
+  "title": "This?",
+  "url": "Token?",
+  "likes": 1
+}

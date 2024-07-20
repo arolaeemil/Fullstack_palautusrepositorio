@@ -27,7 +27,9 @@ const errorHandler = (error, request, response, next) => {
     return response.status(400).json({ error: 'password must be at least 3 characters long' })
   } else if (error.name === 'UsernameValidationError') {
     return response.status(400).json({ error: 'username is already taken' })
-}
+  } else if (error.name ===  'JsonWebTokenError') {
+    return response.status(400).json({ error: 'token missing or invalid' })
+  }
   next(error)
 }
 
