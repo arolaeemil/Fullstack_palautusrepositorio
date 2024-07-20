@@ -2,14 +2,26 @@ const bcrypt = require('bcrypt')
 const usersRouter = require('express').Router()
 const User = require('../models/user')
 
-usersRouter.post('/', async (request, response) => {
+usersRouter.post('/', async (request, response, next) => {
   const { username, name, password } = request.body
-  
-  console.log('Headers:', request.headers);
-  console.log('Request body (raw):', request.body);
-  console.log("request body:")
-  console.log(request.body)
 
+  //console.log('Headers:', request.headers);
+  //console.log('Request body (raw):', request.body);
+  //console.log("request body:")
+  //console.log(request.body)
+
+  if (!password || password.length < 3) {
+    const error = new Error('Password must be at least 3 characters long')
+    error.name = 'PasswordValidationError'
+    return next(error)
+  }
+
+  const existingUser = await User.findOne({ username })
+  if (existingUser) {
+    const error = new Error('Username must be unique')
+    error.name = 'UsernameValidationError'
+    return next(error)
+  }
   const saltRounds = 10
   const passwordHash = await bcrypt.hash(password, saltRounds)
   // const passwordHash = password
