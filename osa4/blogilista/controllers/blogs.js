@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 const blogsRouter = require('express').Router()
 const Blog = require('../models/blog')
+//const User = require('../models/user')
 
 blogsRouter.get('/', (request, response) => {
   Blog.find({}).then(blogs => {

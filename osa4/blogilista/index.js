@@ -1,3 +1,4 @@
+require('dotenv').config()
 
 const app = require('./app') // varsinainen Express-sovellus
 const config = require('./utils/config')
