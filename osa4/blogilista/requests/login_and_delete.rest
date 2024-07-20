@@ -1,0 +1,13 @@
+###login
+POST http://localhost:3001/api/login
+Content-Type: application/json
+
+{
+  "username": "test_username",
+  "password": "testpassword"
+}
+
+###delete a blog
+DELETE http://localhost:3001/api/blogs/669c19b41bb9c60e2668f041
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RfdXNlcm5hbWUiLCJpZCI6IjY2OWMwOTk0YTBkZjNiMTY2ZGMxNjBhMiIsImlhdCI6MTcyMTUwNjIzOX0.hpQ6tbe_cLJld_AOXu9XwloA3fk6Nk8OidKAAC_9i6s
+Content-Type: application/json

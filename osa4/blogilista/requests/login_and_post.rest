@@ -3,13 +3,13 @@ POST http://localhost:3001/api/login
 Content-Type: application/json
 
 {
-  "username": "test_username",
-  "password": "testpassword"
+  "username": "test_username2",
+  "password": "testpassword2"
 }
 
 ###post a blog
 POST http://localhost:3001/api/blogs
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RfdXNlcm5hbWUiLCJpZCI6IjY2OWMwOTk0YTBkZjNiMTY2ZGMxNjBhMiIsImlhdCI6MTcyMTUwNTA0Mn0.rOvcCNLzLI9E6IHI8vj0Zo5seglmmeLwDYLzBd3CJss
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RfdXNlcm5hbWUyIiwiaWQiOiI2NjljMTk5MTFiYjljNjBlMjY2OGYwM2QiLCJpYXQiOjE3MjE1MDYyMTN9.IhUZc_O4ACIbPnGOXk75PXsaAajy_WEeQgVhbIEUu6A
 Content-Type: application/json
 
 {
