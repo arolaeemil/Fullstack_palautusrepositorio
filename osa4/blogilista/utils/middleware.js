@@ -30,7 +30,7 @@ const errorHandler = (error, request, response, next) => {
   } else if (error.name === 'UsernameValidationError') {
     return response.status(400).json({ error: 'username is already taken' })
   } else if (error.name ===  'JsonWebTokenError') {
-    return response.status(400).json({ error: 'token missing or invalid' })
+    return response.status(401).json({ error: 'token missing or invalid' })
   }
   next(error)
 }
