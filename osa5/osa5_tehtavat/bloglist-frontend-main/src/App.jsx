@@ -7,6 +7,7 @@ import Notification from './components/Notification'
 const App = () => {
   const [blogs, setBlogs] = useState([])
   const [errorMessage, setErrorMessage] = useState(null)
+  const [successMessage, setSuccessMessage] = useState(null)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
@@ -50,6 +51,10 @@ const App = () => {
       setNewBlogAuthor('Author here...')
       setNewBlogTitle('Title here...')
       setNewBlogUrl('Url here...')
+      setSuccessMessage(`a new blob "${newBlogTitle}" by "${newBlogAuthor}" added`)
+      setTimeout(() => {
+        setSuccessMessage(null)
+      }, 5000)
     } catch (error) {
       setErrorMessage('Error adding a blog')
       setTimeout(() => {
@@ -75,6 +80,10 @@ const App = () => {
       setUser(user)
       setUsername('')
       setPassword('')
+      setSuccessMessage('you have logged in with great success')
+      setTimeout(() => {
+        setSuccessMessage(null)
+      }, 5000)
     } catch (exception) {
       setErrorMessage('wrong credentials')
       setTimeout(() => {
@@ -90,6 +99,10 @@ const App = () => {
     window.localStorage.removeItem('loggedBlogUser')
     setUser(null)
     blogService.setToken(null)
+    setSuccessMessage('you have logged out with great success')
+    setTimeout(() => {
+      setSuccessMessage(null)
+    }, 5000)
     }
 
   const addBlogForm = () => (
@@ -146,7 +159,8 @@ const App = () => {
   return (
     <div>
       <h2>login</h2>
-      <Notification message={errorMessage} />
+      <Notification message={errorMessage} type="error" />
+      <Notification message={successMessage} type="success"/>
       {!user && loginForm()}
       {user && <div>
        <p>{user.name} logged in</p>
