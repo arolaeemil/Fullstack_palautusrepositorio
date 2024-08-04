@@ -50,6 +50,14 @@ const App = () => {
       }, 5000)
     }
   }
+  
+
+  const handleLogout = (event) => {
+    event.preventDefault()
+    console.log('logging out')
+    window.localStorage.removeItem('loggedBlogUser')
+    setUser(null)
+    }
 
   const loginForm = () => (
     <form onSubmit={handleLogin}>
@@ -75,6 +83,12 @@ const App = () => {
     </form>      
   )
 
+  const logoutForm = () => (
+    <form onSubmit={handleLogout}>
+      <button type="submit">logout</button>
+    </form>      
+  )
+
   const blogForm = () => (
     <div>
       <h2>blogs</h2>
@@ -91,6 +105,7 @@ const App = () => {
       {!user && loginForm()}
       {user && <div>
        <p>{user.name} logged in</p>
+         {logoutForm()}
          {blogForm()}
       </div>
       }
