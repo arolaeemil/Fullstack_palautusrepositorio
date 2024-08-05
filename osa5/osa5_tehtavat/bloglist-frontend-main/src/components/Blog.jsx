@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-const Blog = ({ blog, updateBlogLikes }) => {
+const Blog = ({ blog, updateBlogLikes, deleteBlog }) => {
 
   const [showInfo, setShowInfo] = useState(false)
 
@@ -14,6 +14,10 @@ const Blog = ({ blog, updateBlogLikes }) => {
     //updatedBlog.user = userdata
     //console.log(updatedBlog)
     updateBlogLikes(updatedBlog)
+  }
+
+  const handleDelete = () => {
+    deleteBlog(blog)
   }
 
   return (
@@ -31,6 +35,7 @@ const Blog = ({ blog, updateBlogLikes }) => {
           <p>Added by: {blog.user ? blog.user.username : 'adder unknown'}</p>
           <p>Likes: {blog.likes} likes</p>
           <button onClick={handleLike}>like</button>
+          <button onClick={handleDelete}>delete</button>
         </div>
       )}
     </div>

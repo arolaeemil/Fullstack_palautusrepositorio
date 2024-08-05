@@ -181,7 +181,7 @@ const App = () => {
         <h2>blogs</h2>
         {/* {blogs.map(blog => ( */}
         {sortedBlogs.map(blog => (
-          <Blog key={blog.id} blog={blog} updateBlogLikes={updateBlogLikes}/>
+          <Blog key={blog.id} blog={blog} updateBlogLikes={updateBlogLikes} deleteBlog={deleteBlog}/>
         ))}
       </div>
     )
@@ -213,8 +213,26 @@ const App = () => {
   const testButton = () => {
     //setBlogs(blogs)
     console.log(blogs)
-    blogService.getAll().then(blogs => setBlogs( blogs ))  
+    //blogService.getAll().then(blogs => setBlogs( blogs ))
   }
+
+  const deleteBlog = async (removedBlog) =>{
+    try {
+      if (window.confirm(`really remove blog "${removedBlog.title}" by ${removedBlog.author}?`)) {
+      await blogService.remove(removedBlog.id)
+      setBlogs(blogs.filter(blog => blog.id !== removedBlog.id))
+      setSuccessMessage(`successfully removed blog`)
+      setTimeout(() => {
+        setSuccessMessage(null)
+      }, 5000)}}
+      catch (error) {
+        console.log(error)
+        setErrorMessage('failed to delete blog')
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000)
+      }
+    }
 
   return (
     <div>
