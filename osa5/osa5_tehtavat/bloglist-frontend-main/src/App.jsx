@@ -21,7 +21,7 @@ const App = () => {
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs( blogs )
-    )  
+    )
   }, [])
 
   useEffect(() => {
@@ -37,7 +37,7 @@ const App = () => {
   //const handleBlogTitleChange = (event) => {setNewBlogTitle(event.target.value)}
   //const handleBlogUrlChange = (event) => {setNewBlogUrl(event.target.value)}
 
-  const handleAddBlog = async (event) => {
+  /*   const handleAddBlog = async (event) => {
     event.preventDefault()
     const blogObject = {
       author: newBlogAuthor,
@@ -61,7 +61,7 @@ const App = () => {
         setErrorMessage(null)
       }, 5000)
     }
-  }
+  } */
 
   const handleLogin =  async (event) => {
     event.preventDefault()
@@ -74,7 +74,7 @@ const App = () => {
 
       window.localStorage.setItem(
         'loggedBlogUser', JSON.stringify(user)
-      ) 
+      )
 
       blogService.setToken(user.token)
       setUser(user)
@@ -91,7 +91,7 @@ const App = () => {
       }, 5000)
     }
   }
-  
+
 
   const handleLogout = (event) => {
     event.preventDefault()
@@ -103,9 +103,9 @@ const App = () => {
     setTimeout(() => {
       setSuccessMessage(null)
     }, 5000)
-    }
+  }
 
-/*   const addBlogForm = () => (
+  /*   const addBlogForm = () => (
     <form onSubmit={handleAddBlog}>
         <input value={newBlogAuthor}
         onChange={handleBlogAuthorChange}/>
@@ -114,12 +114,12 @@ const App = () => {
         <input value={newBlogUrl}
         onChange={handleBlogUrlChange}/>
         <button type="submit">save</button>
-    </form> 
+    </form>
   ) */
 
   const addBlog = async (blogObject) => {
     try {
-      const returnedBlog = await blogService.create(blogObject);
+      const returnedBlog = await blogService.create(blogObject)
       setBlogs(blogs.concat(returnedBlog))
       setSuccessMessage(`a new blog "${blogObject.title}" by "${blogObject.author}" added`)
       setTimeout(() => {
@@ -127,14 +127,14 @@ const App = () => {
       }, 5000)
     } catch (error) {
       console.log(error)
-      setErrorMessage('Error adding a blog');
+      setErrorMessage('Error adding a blog')
       setTimeout(() => {
-        setErrorMessage(null);
+        setErrorMessage(null)
       }, 5000)
     }
   }
 
-/*   const addBlog = (blogObject) => (
+  /*   const addBlog = (blogObject) => (
     blogService
       .create(blogObject)
       .then(returnedBlog => {
@@ -147,7 +147,7 @@ const App = () => {
     <form onSubmit={handleLogin}>
       <div>
         username
-          <input
+        <input
           type="text"
           value={username}
           name="Username"
@@ -156,7 +156,7 @@ const App = () => {
       </div>
       <div>
         password
-          <input
+        <input
           type="password"
           value={password}
           name="Password"
@@ -164,13 +164,13 @@ const App = () => {
         />
       </div>
       <button type="submit">login</button>
-    </form>      
+    </form>
   )
 
   const logoutForm = () => (
     <form onSubmit={handleLogout}>
       <button type="submit">logout</button>
-    </form>      
+    </form>
   )
 
   const blogForm = () => {
@@ -200,7 +200,7 @@ const App = () => {
       returnedBlog.user = updatedBlog.user
       setBlogs(blogs.map(blog => blog.id !== returnedBlog.id ? blog : returnedBlog))
       //is this the desired fix? most likely no...
-      //blogService.getAll().then(blogs => setBlogs( blogs ))  
+      //blogService.getAll().then(blogs => setBlogs( blogs ))
     } catch (error) {
       console.log(error)
       setErrorMessage('error during like update')
@@ -216,23 +216,23 @@ const App = () => {
     //blogService.getAll().then(blogs => setBlogs( blogs ))
   }
 
-  const deleteBlog = async (removedBlog) =>{
+  const deleteBlog = async (removedBlog) => {
     try {
       if (window.confirm(`really remove blog "${removedBlog.title}" by ${removedBlog.author}?`)) {
-      await blogService.remove(removedBlog.id)
-      setBlogs(blogs.filter(blog => blog.id !== removedBlog.id))
-      setSuccessMessage(`successfully removed blog`)
-      setTimeout(() => {
-        setSuccessMessage(null)
-      }, 5000)}}
-      catch (error) {
-        console.log(error)
-        setErrorMessage('failed to delete blog')
+        await blogService.remove(removedBlog.id)
+        setBlogs(blogs.filter(blog => blog.id !== removedBlog.id))
+        setSuccessMessage('successfully removed blog')
         setTimeout(() => {
-          setErrorMessage(null)
-        }, 5000)
-      }
+          setSuccessMessage(null)
+        }, 5000)}}
+    catch (error) {
+      console.log(error)
+      setErrorMessage('failed to delete blog')
+      setTimeout(() => {
+        setErrorMessage(null)
+      }, 5000)
     }
+  }
 
   return (
     <div>
@@ -241,12 +241,12 @@ const App = () => {
       <Notification message={successMessage} type="success"/>
       {!user && loginForm()}
       {user && <div>
-       <p>{user.name} logged in</p>
-         {logoutForm()}
-         <h2>add a new blog</h2>
-          {addBlogForm()}
-         {blogForm()}
-         <button onClick={testButton}>testbutton</button>
+        <p>{user.name} logged in</p>
+        {logoutForm()}
+        <h2>add a new blog</h2>
+        {addBlogForm()}
+        {blogForm()}
+        {/* <button onClick={testButton}>testbutton</button> */}
       </div>
       }
     </div>
