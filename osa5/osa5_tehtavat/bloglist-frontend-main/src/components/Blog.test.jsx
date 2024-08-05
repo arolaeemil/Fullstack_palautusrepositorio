@@ -54,3 +54,28 @@ test('more content can be viewed by pressing view-button', async () => {
   expect(likeElement).toBeDefined()
 
 })
+
+test('if like button is pressed twice its event handler is called twice too', async () => {
+  const blog = {
+    title: 'test_title',
+    author: 'test_author',
+    url: 'test_url',
+    likes: '1',
+  }
+
+  const mockHandler = vi.fn()
+  const likeMockHandler = vi.fn()
+
+  render(<Blog blog={blog} view={mockHandler} updateBlogLikes={likeMockHandler}/>)
+
+  const user = userEvent.setup()
+  const button = screen.getByText('view')
+  await user.click(button)
+
+  const likeButton = screen.getByText('like')
+  await user.click(likeButton)
+  await user.click(likeButton)
+
+  expect(likeMockHandler.mock.calls).toHaveLength(2)
+
+})
