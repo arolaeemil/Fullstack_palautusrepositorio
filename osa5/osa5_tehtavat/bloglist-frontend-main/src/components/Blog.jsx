@@ -23,21 +23,19 @@ const Blog = ({ blog, updateBlogLikes, deleteBlog }) => {
 
   return (
     <div>
-      <div>
-        Title: {blog.title}
-        <button onClick={toggleInfo}>
-          {showInfo ? 'hide' : 'view'}
-        </button>
-      </div>
+      {blog.title} by {blog.author}
+      <button onClick={toggleInfo}>
+        {showInfo ? 'hide' : 'view'}
+      </button>
       {showInfo && (
-        <div>
-          <p>Author: {blog.author}</p>
+        <>
+          {/* <p>Author: {blog.author}</p> */}
           <p>Url: {blog.url}</p>
           <p>Added by: {blog.user ? blog.user.username : 'adder unknown'}</p>
           <p>Likes: {blog.likes} likes</p>
           <button onClick={handleLike}>like</button>
           <button onClick={handleDelete}>delete</button>
-        </div>
+        </>
       )}
     </div>
   )
