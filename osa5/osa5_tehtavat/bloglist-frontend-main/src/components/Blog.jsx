@@ -32,7 +32,7 @@ const Blog = ({ blog, updateBlogLikes, deleteBlog }) => {
           {/* <p>Author: {blog.author}</p> */}
           <p>Url: {blog.url}</p>
           <p>Added by: {blog.user ? blog.user.username : 'adder unknown'}</p>
-          <p>Likes: {blog.likes} likes</p>
+          <p>{blog.likes} likes</p>
           <button onClick={handleLike}>like</button>
           <button onClick={handleDelete}>delete</button>
         </>
