@@ -190,8 +190,12 @@ const App = () => {
 
   const updateBlogLikes = async (updatedBlog) => {
     try {
+      //console.log(updatedBlog)
       const returnedBlog = await blogService.update(updatedBlog.id, updatedBlog)
+      returnedBlog.user = updatedBlog.user
       setBlogs(blogs.map(blog => blog.id !== returnedBlog.id ? blog : returnedBlog))
+      //is this the desired fix? most likely no...
+      //blogService.getAll().then(blogs => setBlogs( blogs ))  
     } catch (error) {
       console.log(error)
       setErrorMessage('error during like update')
@@ -199,6 +203,12 @@ const App = () => {
         setErrorMessage(null)
       }, 5000)
     }
+  }
+
+  const testButton = () => {
+    //setBlogs(blogs)
+    console.log(blogs)
+    blogService.getAll().then(blogs => setBlogs( blogs ))  
   }
 
   return (
@@ -213,6 +223,7 @@ const App = () => {
          <h2>add a new blog</h2>
           {addBlogForm()}
          {blogForm()}
+         <button onClick={testButton}>testbutton</button>
       </div>
       }
     </div>
