@@ -1,5 +1,5 @@
 const { test, expect, describe, beforeEach } = require('@playwright/test')
-const { loginWith, createBlog, likeBlog, deleteBlog, makeOtherUserBlog } = require('./helper')
+const { loginWith, createBlog, likeBlog, deleteBlog, makeOtherUserBlog, makeBlogsWithLikes, openBlogInfos, giveLikes, areLikesInOrder} = require('./helper')
 
 describe('Blog app', () => {
     beforeEach(async ({ page, request }) => {
@@ -72,6 +72,15 @@ describe('Blog app', () => {
         await loginWith(page, 'testkayttaja', 'salainen')
         await page.getByRole('button', { name: 'view' }).click()
         await expect(page.getByText('delete')).not.toBeVisible()
+    })
+
+    test('the blogs are sorted in correct order according to likes', async ({ page }) => {
+        await loginWith(page, 'testkayttaja', 'salainen')
+        await makeBlogsWithLikes(page)
+        await openBlogInfos(page)
+        await giveLikes(page)
+        const result = await areLikesInOrder(page)
+        expect(result === true)
     })
 
 })
