@@ -148,6 +148,7 @@ const App = () => {
       <div>
         username
         <input
+          data-testid='username'
           type="text"
           value={username}
           name="Username"
@@ -157,6 +158,7 @@ const App = () => {
       <div>
         password
         <input
+          data-testid='password'
           type="password"
           value={password}
           name="Password"
@@ -236,7 +238,7 @@ const App = () => {
 
   return (
     <div>
-      <h2>login</h2>
+      <h2>Blog app</h2>
       <Notification message={errorMessage} type="error" />
       <Notification message={successMessage} type="success"/>
       {!user && loginForm()}
