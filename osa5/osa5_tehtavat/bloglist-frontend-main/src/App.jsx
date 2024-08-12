@@ -14,10 +14,6 @@ const App = () => {
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
 
-  //const [newBlogAuthor, setNewBlogAuthor] = useState('Author here...')
-  //const [newBlogTitle, setNewBlogTitle] = useState('Title here...')
-  //const [newBlogUrl, setNewBlogUrl] = useState('Url here...')
-
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs( blogs )
@@ -32,36 +28,6 @@ const App = () => {
       blogService.setToken(user.token)
     }
   }, [])
-
-  //const handleBlogAuthorChange = (event) => {setNewBlogAuthor(event.target.value)}
-  //const handleBlogTitleChange = (event) => {setNewBlogTitle(event.target.value)}
-  //const handleBlogUrlChange = (event) => {setNewBlogUrl(event.target.value)}
-
-  /*   const handleAddBlog = async (event) => {
-    event.preventDefault()
-    const blogObject = {
-      author: newBlogAuthor,
-      title: newBlogTitle,
-      url: newBlogUrl,
-      likes: 0
-    }
-    try {
-      const returnedBlog = await blogService.create(blogObject)
-      setBlogs(blogs.concat(returnedBlog))
-      setNewBlogAuthor('Author here...')
-      setNewBlogTitle('Title here...')
-      setNewBlogUrl('Url here...')
-      setSuccessMessage(`a new blob "${newBlogTitle}" by "${newBlogAuthor}" added`)
-      setTimeout(() => {
-        setSuccessMessage(null)
-      }, 5000)
-    } catch (error) {
-      setErrorMessage('Error adding a blog')
-      setTimeout(() => {
-        setErrorMessage(null)
-      }, 5000)
-    }
-  } */
 
   const handleLogin =  async (event) => {
     event.preventDefault()
@@ -105,18 +71,6 @@ const App = () => {
     }, 5000)
   }
 
-  /*   const addBlogForm = () => (
-    <form onSubmit={handleAddBlog}>
-        <input value={newBlogAuthor}
-        onChange={handleBlogAuthorChange}/>
-        <input value={newBlogTitle}
-        onChange={handleBlogTitleChange}/>
-        <input value={newBlogUrl}
-        onChange={handleBlogUrlChange}/>
-        <button type="submit">save</button>
-    </form>
-  ) */
-
   const addBlog = async (blogObject) => {
     try {
       const returnedBlog = await blogService.create(blogObject)
@@ -133,15 +87,6 @@ const App = () => {
       }, 5000)
     }
   }
-
-  /*   const addBlog = (blogObject) => (
-    blogService
-      .create(blogObject)
-      .then(returnedBlog => {
-        setBlogs(blogs.concat(returnedBlog))
-      })
-  )
-   */
 
   const loginForm = () => (
     <form onSubmit={handleLogin}>
