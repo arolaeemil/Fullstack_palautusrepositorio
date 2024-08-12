@@ -183,7 +183,7 @@ const App = () => {
         <h2>blogs</h2>
         {/* {blogs.map(blog => ( */}
         {sortedBlogs.map(blog => (
-          <Blog key={blog.id} blog={blog} updateBlogLikes={updateBlogLikes} deleteBlog={deleteBlog}/>
+          <Blog key={blog.id} blog={blog} currentUser = {user} updateBlogLikes={updateBlogLikes} deleteBlog={deleteBlog}/>
         ))}
       </div>
     )
